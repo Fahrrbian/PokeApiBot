@@ -1,0 +1,60 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.apicall</groupId>
+  <artifactId>de.apicall</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>APICall</name>
+  <!-- Java-Version einstellen -->
+    <properties>
+    	<java.version>17</java.version> <!-- Oder die JDK-Version, die Sie verwenden -->
+    	<spring-boot.version>2.6.8</spring-boot.version>
+    </properties>
+
+
+
+    <!-- Abhängigkeiten hinzufügen -->
+    <dependencies>
+        <!-- JDA-Abhängigkeit -->
+        <dependency>
+            <groupId>net.dv8tion</groupId>
+            <artifactId>JDA</artifactId>
+            <version>5.0.0-alpha.10</version> <!-- Aktuelle Version prüfen -->
+        </dependency>
+	<dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter</artifactId>
+          <version>2.6.8</version>
+      </dependency>
+
+        <!-- Spring Boot Starter Web für RestTemplate und REST-Controller -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>2.6.8</version>
+     	</dependency>
+     	     <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <version>2.6.8</version>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>repackage</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+</project>

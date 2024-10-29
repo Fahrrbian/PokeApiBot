@@ -1,0 +1,7 @@
+de\apicall\commands\ApiCommand.class
+de\apicall\controller\ApiController.class
+de\apicall\handlers\EventHandler.class
+de\apicall\commands\GetCommand.class
+de\apicall\events\ReadyListener.class
+de\apicall\application\BotMain.class
+de\apicall\handlers\CommandHandler.class
