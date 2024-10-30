@@ -5,6 +5,7 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,17 +15,16 @@ import org.springframework.web.client.RestTemplate;
 import de.apicall.handlers.CommandHandler;
 import de.apicall.handlers.EventHandler;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "de.apicall")
 public class BotMain implements CommandLineRunner {
+	
+	@Autowired
+	private RestTemplate restTemplate; 
 	
     public static void main(String[] args) {
     	SpringApplication.run(BotMain.class, args); 
     }
-        @Bean 
-        public RestTemplate restTemplate() {
-        	return new RestTemplate(); 
-        }
-     
+
     
 
 	@Override
@@ -42,7 +42,7 @@ public class BotMain implements CommandLineRunner {
 	                .setActivity(Activity.playing("API-READY"))
 	                .build();
 
-	        RestTemplate restTemplate = restTemplate(); 
+	         
 	        new CommandHandler(jda, restTemplate);
 	        new EventHandler(jda);
 	}

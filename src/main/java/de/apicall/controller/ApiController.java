@@ -15,10 +15,6 @@ public class ApiController {
 
 private final RestTemplate restTemplate;
 
-@Bean
-public RestTemplate restTemplate(RestTemplateBuilder builder) {
-    return builder.build();
-}
 
 
 @Autowired
