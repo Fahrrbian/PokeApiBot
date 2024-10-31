@@ -18,7 +18,7 @@ public class ApiCommand extends ListenerAdapter {
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getMessage().getContentRaw().equals("!fetchdata")) {
         	try {        		    
-            String response = restTemplate.getForObject("http://localhost:8080/api/data", String.class);
+            String response = restTemplate.getForObject("http://localhost:9090/api/pokemon", String.class);
             event.getChannel().sendMessage("API Response: " + response).queue();          
         } catch(HttpClientErrorException e) {
         	System.err.println("Error "+ e.getStatusCode() + e.getResponseBodyAsString()); 

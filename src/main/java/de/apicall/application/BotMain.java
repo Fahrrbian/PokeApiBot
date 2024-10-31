@@ -18,6 +18,8 @@ import de.apicall.handlers.EventHandler;
 @SpringBootApplication(scanBasePackages = "de.apicall")
 public class BotMain implements CommandLineRunner {
 	
+    private static final String DISCORD_TOKEN_ENV = "DISCORD_TOKEN";
+	
 	@Autowired
 	private RestTemplate restTemplate; 
 	
@@ -30,20 +32,25 @@ public class BotMain implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-	     String token = System.getenv("DISCORD_TOKEN");
+	     String token = getDiscordToken(); 
 	     
-	     if (token == null || token.isEmpty()) {
-	            throw new IllegalArgumentException("Der Discord-Bot-Token ist nicht gesetzt. Bitte setzen Sie die Umgebungsvariable 'DISCORD_TOKEN'.");
-	        }
-
 
 	        JDA jda = JDABuilder.createDefault(token)
 	                .enableIntents(GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES)
 	                .setActivity(Activity.playing("API-READY"))
 	                .build();
 
-	         
-	        new CommandHandler(jda, restTemplate);
-	        new EventHandler(jda);
+	      new CommandHandler(jda, restTemplate); 
+	      new EventHandler(jda); 
+	        
 	}
+	
+	   private String getDiscordToken() {
+	        String token = System.getenv(DISCORD_TOKEN_ENV);
+	        if (token == null || token.isEmpty()) {
+	            throw new IllegalArgumentException("Der Discord-Bot-Token ist nicht gesetzt. Bitte setzen Sie die Umgebungsvariable '" + DISCORD_TOKEN_ENV + "'.");
+	        }
+	        return token;
+	    }
+	 
 }
