@@ -41,7 +41,6 @@ public ApiController(RestTemplateBuilder builder, MessageService messageService)
 @GetMapping("/pokemon") 
 public ResponseEntity<byte[]> getData() throws Exception{
 	String pokemonName = messageService.getCommandArgument(); 
-	System.out.println("Gegettet");
 	  if (pokemonName == null || pokemonName.isEmpty()) {
           //return ResponseEntity.badRequest().body("No valid Pokémon name provided.");
       }

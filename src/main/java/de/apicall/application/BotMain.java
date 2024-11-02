@@ -18,20 +18,15 @@ import de.apicall.controller.ApiController;
 import de.apicall.handlers.CommandHandler;
 import de.apicall.handlers.EventHandler;
 import de.apicall.services.MessageService;
+import de.apicall.utils.CommandRegistry;
 
 @SpringBootApplication(scanBasePackages = "de.apicall")
 public class BotMain implements CommandLineRunner {
 	
     private static final String DISCORD_TOKEN_ENV = "DISCORD_TOKEN";
-	
-	@Autowired
-	private RestTemplate restTemplate; 
-	
-	@Autowired
-	private MessageService messageService; 
-	
-	@Autowired 
-	private ApiController apiController; 
+
+    @Autowired 
+    private CommandRegistry commandRegistry; 
 	
     public static void main(String[] args) {
     	SpringApplication.run(BotMain.class, args); 
@@ -50,7 +45,7 @@ public class BotMain implements CommandLineRunner {
 	                .setActivity(Activity.playing("API-READY"))
 	                .build();
 
-	      new CommandHandler(jda, restTemplate, messageService, apiController); 
+	      new CommandHandler(jda, commandRegistry); 
 	      new EventHandler(jda); 
 	        
 	}
