@@ -66,5 +66,23 @@ public ResponseEntity<byte[]> getData() throws Exception{
      return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
 	
 	}
+@GetMapping("/pokemon/info") 
+public ResponseEntity<String> getPokemonInfo() {
+	String pokemonName = messageService.getCommandArgument(); 
+	if(pokemonName == null || pokemonName.isEmpty()) {
+		return ResponseEntity.badRequest().body("Kein Pokemon verfügbar");
+	}
+    String apiUrl = "https://pokeapi.co/api/v2/pokemon/" + pokemonName;
+    String response = restTemplate.getForObject(apiUrl, String.class);
+
+    JSONObject jsonResponse = new JSONObject(response);
+    String name = jsonResponse.getString("name");
+    int height = jsonResponse.getInt("height");
+    int weight = jsonResponse.getInt("weight");
+
+    String info = String.format("Name: %s, Height: %d dm, Weight: %d hg", name, height, weight);
+
+    return ResponseEntity.ok(info);
+	}
 }
 
