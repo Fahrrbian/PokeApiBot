@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 @RestController
@@ -74,15 +75,48 @@ public ResponseEntity<String> getPokemonInfo() {
 	}
     String apiUrl = "https://pokeapi.co/api/v2/pokemon/" + pokemonName;
     String response = restTemplate.getForObject(apiUrl, String.class);
-
     JSONObject jsonResponse = new JSONObject(response);
     String name = jsonResponse.getString("name");
     int height = jsonResponse.getInt("height");
     int weight = jsonResponse.getInt("weight");
-
-    String info = String.format("Name: %s, Height: %d dm, Weight: %d hg", name, height, weight);
+    //int rarity = jsonResponse.getInt("rarity");            
+    String info = String.format("Name: %s, Height: %d dm, Weight: %d hg",  
+            name, height, weight);
 
     return ResponseEntity.ok(info);
 	}
+
+@GetMapping("pokemon/abilities") 
+public ResponseEntity<String> getPokemonAbilities() {
+	String pokemonName = messageService.getCommandArgument(); 
+	if(pokemonName == null || pokemonName.isEmpty()) {
+		return ResponseEntity.badRequest().body("Kein Pokemon verfügbar");
+	}
+    String apiUrl = "https://pokeapi.co/api/v2/pokemon/" + pokemonName;
+    String response = restTemplate.getForObject(apiUrl, String.class);
+
+    JSONObject jsonResponse = new JSONObject(response);
+    
+    JSONArray abilitiesArray = jsonResponse.getJSONArray("abilities"); 
+    String[] abilities = new String[abilitiesArray.length()]; 
+    
+    StringBuilder abilitiesBuilder = new StringBuilder(); 
+    
+    for(int i= 0; i < abilitiesArray.length(); i++) {
+    	JSONObject abilityObject = abilitiesArray.getJSONObject(i); 
+    	String abilityName = abilityObject.getJSONObject("ability").getString("name");
+    	if(i>0) {
+    		abilitiesBuilder.append(", "); 
+    	}
+    	abilitiesBuilder.append(abilityName); 
+    }
+   
+    String abilitiesList = abilitiesBuilder.toString();
+    
+    //String abilities = String.format(abilitiesList, abilities)
+    
+	return ResponseEntity.ok(abilitiesList);
+}
+
 }
 

@@ -43,13 +43,20 @@ public class ApiCommand extends ListenerAdapter implements BotCommand {
      		   String info = apicontroller.getPokemonInfo().getBody(); 
      		   event.getChannel().sendMessage(info).queue(); 
      	   }
-         }                
+         }
+    	 else if(message.startsWith("!abilities")) {
+        	   String[] args = message.split(" ");
+        	   if (args.length > 1) {
+        		   messageService.setCommandArgument(args[1]);
+        		   String abilities = apicontroller.getPokemonAbilities().getBody(); 
+        		   event.getChannel().sendMessage(args[1] + "hat die Fähigkeiten " + abilities).queue(); 
+        	   }
+            }                 
         }catch(Exception e) {
     		System.err.print("Fehlerrr");
     		event.getChannel().sendMessage("Dieses Pokemon gibt es nicht!").queue(); 
     	
        }
-       
 	}
 
 
