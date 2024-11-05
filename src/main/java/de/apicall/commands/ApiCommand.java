@@ -5,6 +5,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import de.apicall.controller.ApiController;
+import de.apicall.evolutions.EvolutionController;
 import de.apicall.services.MessageService;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -15,11 +16,13 @@ public class ApiCommand extends ListenerAdapter implements BotCommand {
 	private final RestTemplate restTemplate;
 	private final MessageService messageService; 
 	private final ApiController apicontroller; 
+	private final EvolutionController evocontroller; 
 	
-    public ApiCommand(RestTemplate restTemplate, MessageService messageService, ApiController apicontroller) {
+    public ApiCommand(RestTemplate restTemplate, MessageService messageService, ApiController apicontroller, EvolutionController evocontroller) {
         this.restTemplate = restTemplate;    
         this.messageService = messageService;
-		this.apicontroller = apicontroller; 
+		this.apicontroller = apicontroller;
+		this.evocontroller = evocontroller; 
     }
 
     
@@ -28,7 +31,7 @@ public class ApiCommand extends ListenerAdapter implements BotCommand {
     public void onMessageReceived(MessageReceivedEvent event) {
         String message = event.getMessage().getContentRaw();      
         try {             
-    	if (message.startsWith("!fetchdata")) {
+    	if (message.startsWith("!pokemon")) {
         	String[] args = message.split(" ");         	        	        		    
         	 if (args.length > 1) {
                  messageService.setCommandArgument(args[1]);
@@ -49,9 +52,13 @@ public class ApiCommand extends ListenerAdapter implements BotCommand {
         	   if (args.length > 1) {
         		   messageService.setCommandArgument(args[1]);
         		   String abilities = apicontroller.getPokemonAbilities().getBody(); 
-        		   event.getChannel().sendMessage(args[1] + "hat die Fähigkeiten " + abilities).queue(); 
+        		   event.getChannel().sendMessage(args[1] + " hat die Fähigkeiten " + abilities).queue(); 
         	   }
-            }                 
+            } 
+    	 else if (message.startsWith("!evolution")) {
+    		 String evolutions = evocontroller.getPokemonEvolution().getBody(); 
+    		 event.getChannel().sendMessage(evolutions).queue(); 
+    	 }
         }catch(Exception e) {
     		System.err.print("Fehlerrr");
     		event.getChannel().sendMessage("Dieses Pokemon gibt es nicht!").queue(); 
