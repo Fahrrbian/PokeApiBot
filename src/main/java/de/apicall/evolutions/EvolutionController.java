@@ -29,13 +29,17 @@ public class EvolutionController {
 	public ResponseEntity<String> getPokemonEvolution() throws Exception {
 		StringBuilder evolutions = new StringBuilder();
 		String pokemonName = messageService.getCommandArgument(); 
-		int id = 8; 
 		 if (pokemonName == null || pokemonName.isEmpty()) {
 	          //return ResponseEntity.badRequest().body("No valid Pokémon name provided.");
 	      }
-		 String apiUrl = "https://pokeapi.co/api/v2/evolution-chain/" + id;
-		 String response = restTemplate.getForObject(apiUrl, String.class); 
+		 String pokemonUrl = "https://pokeapi.co/api/v2/pokemon-species/" + pokemonName;	
+		 String speciesResponse = restTemplate.getForObject(pokemonUrl, String.class);
+		 JSONObject speciesJson = new JSONObject(speciesResponse);
 		 
+		 String evolutionChainUrl = speciesJson.getJSONObject("evolution_chain").getString("url");
+
+		 String response = restTemplate.getForObject(evolutionChainUrl, String.class); 
+		 		 		 
 		 JSONObject jsonResponse = new JSONObject(response);
 		 JSONObject chain = jsonResponse.getJSONObject("chain");
 		 

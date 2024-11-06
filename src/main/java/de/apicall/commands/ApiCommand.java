@@ -56,17 +56,30 @@ public class ApiCommand extends ListenerAdapter implements BotCommand {
         	   }
             } 
     	 else if (message.startsWith("!evolution")) {
-    		 String evolutions = evocontroller.getPokemonEvolution().getBody(); 
-    		 event.getChannel().sendMessage(evolutions).queue(); 
+    		    String[] args = message.split(" ");
+    		    if (args.length > 1) {
+    		        messageService.setCommandArgument(args[1]);
+    		        try {
+    		            byte[] imageBytes = apicontroller.getData().getBody();
+    		            String evolutions = evocontroller.getPokemonEvolution().getBody();
+    		                		          
+    		            event.getChannel().sendMessage("Evolutionskette von " + args[1] + ": " + evolutions).queue();
+    		            event.getChannel().sendFile(imageBytes, args[1] + ".png").queue();
+    		            
+    		        } catch (Exception e) {
+    		            e.printStackTrace();
+    		            System.err.print("Fehler");
+    		            event.getChannel().sendMessage("Dieses Pokémon gibt es nicht!").queue(); 
+    		        }
+    		    }
     	 }
-        }catch(Exception e) {
-    		System.err.print("Fehlerrr");
-    		event.getChannel().sendMessage("Dieses Pokemon gibt es nicht!").queue(); 
-    	
-       }
-	}
-
-
+    		    } catch(Exception e) {
+    		    	e.printStackTrace();
+    		    	System.err.print(e.getMessage());
+    		    }
+    		}
+        
+    
 
 	@Override
 	public void register(JDA jda) {
