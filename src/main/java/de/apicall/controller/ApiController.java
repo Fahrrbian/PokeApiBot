@@ -45,26 +45,12 @@ public ResponseEntity<byte[]> getData() throws Exception{
 	  if (pokemonName == null || pokemonName.isEmpty()) {
           //return ResponseEntity.badRequest().body("No valid Pokémon name provided.");
       }
-	String apiUrl ="https://pokeapi.co/api/v2/pokemon/" + pokemonName; 
-	String response = restTemplate.getForObject(apiUrl, String.class);
-	
-	 JSONObject jsonResponse = new JSONObject(response);
-     String imageUrl = jsonResponse
-                         .getJSONObject("sprites")
-                         .getString("front_default");
-
-     URL url = new URL(imageUrl); 
-     HttpURLConnection connection = (HttpURLConnection) url.openConnection(); 
-     connection.setRequestMethod("GET"); 
-     connection.connect(); 
+	byte[] imageBytes = getPokemonImage(pokemonName); 
      
-     InputStream inputStream = connection.getInputStream(); 
-     byte[] imageBytes = inputStream.readAllBytes(); 
+    HttpHeaders headers = new HttpHeaders(); 
+    headers.setContentType(MediaType.IMAGE_PNG); 
      
-     HttpHeaders headers = new HttpHeaders(); 
-     headers.setContentType(MediaType.IMAGE_PNG); 
-     
-     return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
+    return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
 	
 	}
 @GetMapping("/pokemon/info") 
@@ -116,7 +102,24 @@ public ResponseEntity<String> getPokemonAbilities() {
     //String abilities = String.format(abilitiesList, abilities)
     
 	return ResponseEntity.ok(abilitiesList);
-}
+	}
+public byte[] getPokemonImage(String pokemonName) throws Exception {
+	String apiUrl ="https://pokeapi.co/api/v2/pokemon/" + pokemonName; 
+	String response = restTemplate.getForObject(apiUrl, String.class);
+	
+	 JSONObject jsonResponse = new JSONObject(response);
+     String imageUrl = jsonResponse
+                         .getJSONObject("sprites")
+                         .getString("front_default");
 
+     URL url = new URL(imageUrl); 
+     HttpURLConnection connection = (HttpURLConnection) url.openConnection(); 
+     connection.setRequestMethod("GET"); 
+     connection.connect(); 
+     
+     try(InputStream inputStream = connection.getInputStream()) {
+    	 return inputStream.readAllBytes(); 
+     } 
+}
 }
 

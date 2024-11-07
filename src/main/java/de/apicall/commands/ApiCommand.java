@@ -1,5 +1,8 @@
 package de.apicall.commands;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -8,8 +11,10 @@ import de.apicall.controller.ApiController;
 import de.apicall.evolutions.EvolutionController;
 import de.apicall.services.MessageService;
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.requests.restaction.MessageAction;
 
 public class ApiCommand extends ListenerAdapter implements BotCommand {
 
@@ -59,13 +64,22 @@ public class ApiCommand extends ListenerAdapter implements BotCommand {
     		    String[] args = message.split(" ");
     		    if (args.length > 1) {
     		        messageService.setCommandArgument(args[1]);
-    		        try {
-    		            byte[] imageBytes = apicontroller.getData().getBody();
-    		            String evolutions = evocontroller.getPokemonEvolution().getBody();
-    		                		          
-    		            event.getChannel().sendMessage("Evolutionskette von " + args[1] + ": " + evolutions).queue();
-    		            event.getChannel().sendFile(imageBytes, args[1] + ".png").queue();
-    		            
+    		        try {    		    
+    		            // Erhalte die Liste der Embeds von evocontroller.getPokemonEvolution()
+    		            List<MessageEmbed> embeds = evocontroller.getPokemonEvolution();
+
+    		            // Baue die Nachricht mit den Embeds und Bildern auf
+    		            for (MessageEmbed embed : embeds) {
+    		                String speciesName = embed.getTitle().replace("Evolution: ", "");
+    		                byte[] imageBytes = apicontroller.getPokemonImage(speciesName);
+    		                String imageName = speciesName + ".png";
+
+    		                // Sende jeden Embed einzeln mit dem zugehörigen Bild
+    		                event.getChannel()
+    		                    .sendMessageEmbeds(embed)
+    		                    .addFile(imageBytes, imageName)
+    		                    .queue();
+    		            }
     		        } catch (Exception e) {
     		            e.printStackTrace();
     		            System.err.print("Fehler");
