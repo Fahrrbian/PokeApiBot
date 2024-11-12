@@ -7,6 +7,8 @@ import org.springframework.web.client.RestTemplate;
 import de.apicall.commands.ApiCommand;
 import de.apicall.controller.ApiController;
 import de.apicall.evolutions.EvolutionController;
+import de.apicall.roles.listeners.RoleCommandListener;
+import de.apicall.roles.services.RoleService;
 import de.apicall.services.MessageService;
 
 @Configuration
@@ -20,5 +22,9 @@ public class AppConfig {
     @Bean
     public ApiCommand apiCommand(RestTemplate restTemplate, MessageService messageService, ApiController apiController, EvolutionController evocontroller) {
         return new ApiCommand(restTemplate, messageService, apiController, evocontroller);
+    }
+    @Bean 
+    public RoleCommandListener roleCommandListener(RoleService roleService) {
+    	return new RoleCommandListener(roleService); 
     }
 }

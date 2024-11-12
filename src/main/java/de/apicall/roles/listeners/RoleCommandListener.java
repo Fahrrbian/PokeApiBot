@@ -1,19 +1,27 @@
 package de.apicall.roles.listeners;
 
 import net.dv8tion.jda.api.JDA;
+
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
-
+import de.apicall.roles.services.RoleService;
 import de.apicall.commands.BotCommand;
 
 public class RoleCommandListener extends ListenerAdapter implements BotCommand {
 
+	private RoleService roleService; 
+	
+	public RoleCommandListener(RoleService roleService) {
+		this.roleService = roleService; 
+	}
+	
 	 @Override
 	    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-	        String message = event.getMessage().getContentRaw();
+	        String message = event.getMessage().getContentRaw();	       
+	        if(message.startsWith("!trainer")) { 	      
 	        String[] args = message.split(" ");  
 	        if (args[0].equalsIgnoreCase("!trainer")) {
 	            if (args.length < 2) {
@@ -26,28 +34,14 @@ public class RoleCommandListener extends ListenerAdapter implements BotCommand {
 	            Member member = event.getGuild().getMemberById(userId);
 
 	            if (member != null) {
-	                assignTrainerRole(member, event);
+	                roleService.assignTrainerRole(member, event);
 	            } else {
 	                event.getChannel().sendMessage("Benutzer konnte nicht gefunden werden.").queue();
 	            }
 	        }
 	    }
-
-	    private void assignTrainerRole(Member member, MessageReceivedEvent event) {
-	        Role trainerRole = event.getGuild().getRolesByName("Trainer", true).stream()
-	                .findFirst()
-	                .orElse(null);
-
-	        if (trainerRole != null) {
-	            event.getGuild().addRoleToMember(member, trainerRole).queue(
-	                success -> event.getChannel().sendMessage("Trainer-Rolle wurde erfolgreich zugewiesen an " + member.getEffectiveName()).queue(),
-	                error -> event.getChannel().sendMessage("Fehler beim Zuweisen der Trainer-Rolle: " + error.getMessage()).queue()
-	            );
-	        } else {
-	            event.getChannel().sendMessage("Die Rolle 'Trainer' existiert nicht. Bitte erstelle sie zuerst.").queue();
-	        }
-	    }
-
+	 }
+	  
 		@Override
 		public void register(JDA jda) {
 			// TODO Auto-generated method stub

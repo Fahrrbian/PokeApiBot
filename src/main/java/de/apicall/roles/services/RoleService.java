@@ -1,21 +1,36 @@
 package de.apicall.roles.services;
 
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.entities.Member;
 
 public class RoleService {
-	public void assignTrainerRole(Member member) {
+	
+	public void assignTrainerRole(Member member, MessageReceivedEvent event) {
         Role trainerRole = member.getGuild().getRolesByName("Trainer", true).stream()
                 .findFirst()
                 .orElse(null); 
 
-        if (trainerRole != null) {
-            member.getGuild().addRoleToMember(member, trainerRole).queue(
-                success -> System.out.println("Rolle 'Trainer' wurde zugewiesen: " + member.getEffectiveName()),
-                error -> System.err.println("Fehler beim Zuweisen der Rolle: " + error.getMessage())
-            );
+        if (trainerRole == null) {
+            // Erstelle die Rolle, falls sie nicht existiert
+            event.getGuild().createRole()
+                    .setName("Trainer")
+                    .setMentionable(true)
+                    .queue(role -> {
+                        // Füge die Rolle nach Erstellung dem Mitglied hinzu
+                        event.getGuild().addRoleToMember(member, role).queue(
+                                success -> event.getChannel().sendMessage("Trainer-Rolle wurde erstellt und " + member.getEffectiveName() + " zugewiesen!").queue(),
+                                error -> event.getChannel().sendMessage("Fehler beim Zuweisen der Rolle: " + error.getMessage()).queue()
+                        );
+                    }, error -> {
+                        event.getChannel().sendMessage("Fehler beim Erstellen der Rolle: " + error.getMessage()).queue();
+                    });
         } else {
-            System.err.println("Rolle 'Trainer' existiert nicht im Server.");
+            // Weise die existierende Rolle zu
+            event.getGuild().addRoleToMember(member, trainerRole).queue(
+                    success -> event.getChannel().sendMessage("Trainer-Rolle wurde erfolgreich zugewiesen an " + member.getEffectiveName()).queue(),
+                    error -> event.getChannel().sendMessage("Fehler beim Zuweisen der Trainer-Rolle: " + error.getMessage()).queue()
+            );
         }
 	}
 }
