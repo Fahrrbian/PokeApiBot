@@ -11,7 +11,7 @@ public class EventHandler {
     public EventHandler(JDA jda) {
         jda.addEventListener(new ReadyListener());    
 		// Weitere Events hinzufügen
-        //jda.addEventListener(new RoleListener(roleService)); 
+        jda.addEventListener(new RoleListener()); 
         
     }
 

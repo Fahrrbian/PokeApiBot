@@ -10,11 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class RoleListener extends ListenerAdapter {
 
-	private RoleService roleService = new RoleService(); 
-	
-	 public RoleListener(RoleService roleService) {
-	        this.roleService = roleService;
-	    }
+	private final RoleService roleService = RoleService.getInstance(); 	 
 	
 	@Override
 	    public void onGuildMemberJoin(@NotNull GuildMemberJoinEvent event) {
