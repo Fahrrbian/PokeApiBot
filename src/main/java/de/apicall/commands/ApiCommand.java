@@ -3,12 +3,15 @@ package de.apicall.commands;
 import java.util.List;
 import java.util.Map;
 
+import javax.management.relation.Role;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import de.apicall.controller.ApiController;
 import de.apicall.evolutions.EvolutionController;
+import de.apicall.roles.config.RoleConfigLoader;
 import de.apicall.services.MessageService;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -20,14 +23,18 @@ public class ApiCommand extends ListenerAdapter implements BotCommand {
 
 	private final RestTemplate restTemplate;
 	private final MessageService messageService; 
-	private final ApiController apicontroller; 
-	private final EvolutionController evocontroller; 
+	private final ApiController apicontroller;
+	private final EvolutionController evocontroller;
+	private final RoleConfigLoader roleConfig;
 	
-    public ApiCommand(RestTemplate restTemplate, MessageService messageService, ApiController apicontroller, EvolutionController evocontroller) {
+	
+    public ApiCommand(RestTemplate restTemplate, MessageService messageService, 
+    		ApiController apicontroller, EvolutionController evocontroller, RoleConfigLoader roleConfig) {
         this.restTemplate = restTemplate;    
         this.messageService = messageService;
 		this.apicontroller = apicontroller;
-		this.evocontroller = evocontroller; 
+		this.evocontroller = evocontroller;
+		this.roleConfig = roleConfig; 
     }
 
     
@@ -60,6 +67,23 @@ public class ApiCommand extends ListenerAdapter implements BotCommand {
         		   event.getChannel().sendMessage(args[1] + " hat die Fähigkeiten " + abilities).queue(); 
         	   }
             } 
+    	   else if (message.startsWith("!permission")) {    		    	    		 
+		        String[] args = message.split(" ");
+   		    if (args.length > 1) {
+   		        messageService.setCommandArgument(args[1]);
+		    	String roleName = args[1]; 
+   		        List<String> permissions = roleConfig.getPermissionsForRole(roleName);
+   		        if (permissions.isEmpty()) {
+   		            event.getChannel().sendMessage("Keine Berechtigungen für die Rolle " + roleName + " gefunden.").queue();
+   		        } else {
+   		            String permissionList = String.join(", ", permissions);
+   		            event.getChannel().sendMessage("Die Berechtigungen für die Rolle " + roleName + " sind: " + permissionList).queue();
+   		        }
+   		 } else {
+   	        event.getChannel().sendMessage("Bitte gib eine Rolle an, z. B.: `!permission Trainer`").queue();
+   	    
+		    }
+    	 }    	
     	 else if (message.startsWith("!evolution")) {
     		    String[] args = message.split(" ");
     		    if (args.length > 1) {

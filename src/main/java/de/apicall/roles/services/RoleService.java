@@ -21,6 +21,13 @@ public class RoleService {
 		return instance; 
 	}
 	
+    /**
+     * Generische Methode zum Zuweisen einer Rolle.
+     * @param roleName Name der Rolle, die zugewiesen werden soll.
+     * @param member Mitglied, dem die Rolle zugewiesen wird.
+     * @param event Event, das den Kontext bereitstellt.
+     */
+	
 	public void assignTrainerRole(Member member, MessageReceivedEvent event) {
         Role trainerRole = member.getGuild().getRolesByName("Trainer", true).stream()
                 .findFirst()
@@ -48,4 +55,5 @@ public class RoleService {
             );
         }
 	}
+	
 }
