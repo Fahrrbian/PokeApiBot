@@ -12,6 +12,9 @@ public class Pokemon {
 	@Column(nullable = false)
 	private String name; 
 	
+	@Column(nullable = false)
+    private int level;
+	
 	@Column(nullable=false)
 	private boolean shiny;
 
@@ -25,12 +28,16 @@ public class Pokemon {
 
 	public String getName() {
 		return name;
-	}
-
+	}	
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	public int getLevel() {
+		return level; 
+	}
+	public void setLevel(int level) {
+		this.level = level; 
+	}
 	public boolean isShiny() {
 		return shiny;
 	}
