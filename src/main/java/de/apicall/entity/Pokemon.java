@@ -1,6 +1,6 @@
 package de.apicall.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 public class Pokemon {

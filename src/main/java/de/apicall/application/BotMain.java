@@ -3,21 +3,16 @@ package de.apicall.application;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.client.RestTemplate;
-
-import de.apicall.commands.ApiCommand;
-import de.apicall.controller.ApiController;
 import de.apicall.handlers.CommandHandler;
 import de.apicall.handlers.EventHandler;
-import de.apicall.services.MessageService;
+
+
+
 import de.apicall.utils.CommandRegistry;
 
 @SpringBootApplication(scanBasePackages = "de.apicall")
@@ -57,5 +52,4 @@ public class BotMain implements CommandLineRunner {
 	        }
 	        return token;
 	    }
-	 
 }

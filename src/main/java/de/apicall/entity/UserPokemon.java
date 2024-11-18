@@ -2,7 +2,7 @@ package de.apicall.entity;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 
 @Entity
