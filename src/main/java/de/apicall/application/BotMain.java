@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+
 import de.apicall.handlers.CommandHandler;
 import de.apicall.handlers.EventHandler;
 
@@ -16,6 +18,7 @@ import de.apicall.handlers.EventHandler;
 import de.apicall.utils.CommandRegistry;
 
 @SpringBootApplication(scanBasePackages = "de.apicall")
+@EntityScan(basePackages = "de.apicall.entity")
 public class BotMain implements CommandLineRunner {
 	
     private static final String DISCORD_TOKEN_ENV = "DISCORD_TOKEN";
@@ -41,8 +44,7 @@ public class BotMain implements CommandLineRunner {
 	                .build();
 
 	      new CommandHandler(jda, commandRegistry); 
-	      new EventHandler(jda); 
-	        
+	      new EventHandler(jda); 	       	     
 	}
 	
 	   private String getDiscordToken() {
