@@ -12,9 +12,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import de.apicall.handlers.CommandHandler;
 import de.apicall.handlers.EventHandler;
-
-
-
+import de.apicall.test.H2DatabaseTest;
 import de.apicall.utils.CommandRegistry;
 
 @SpringBootApplication(scanBasePackages = "de.apicall")
@@ -25,7 +23,7 @@ public class BotMain implements CommandLineRunner {
 
     @Autowired 
     private CommandRegistry commandRegistry; 
-	
+	  
     public static void main(String[] args) {
     	SpringApplication.run(BotMain.class, args); 
     }
@@ -42,9 +40,9 @@ public class BotMain implements CommandLineRunner {
 	                .enableIntents(GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES)
 	                .setActivity(Activity.playing("API-READY"))
 	                .build();
-
+	     
 	      new CommandHandler(jda, commandRegistry); 
-	      new EventHandler(jda); 	       	     
+	      new EventHandler(jda); 	 	       
 	}
 	
 	   private String getDiscordToken() {

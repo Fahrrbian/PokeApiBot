@@ -14,17 +14,17 @@ import de.apicall.roles.services.RoleService;
 import de.apicall.services.PokemonService;
 import de.apicall.test.H2DatabaseTest;
 import de.apicall.commands.BotCommand;
+import de.apicall.data.H2DataService;
 
 public class RoleCommandListener extends ListenerAdapter implements BotCommand {
 
 	private RoleService roleService; 
 	private PokemonService pokemonService;
-	private H2DatabaseTest h2test; 
 	
-	public RoleCommandListener(RoleService roleService, PokemonService pokemonService, H2DatabaseTest h2test) {
+	public RoleCommandListener(RoleService roleService, PokemonService pokemonService) {
 		this.roleService = roleService; 
 		this.pokemonService = pokemonService; 
-		this.h2test = h2test; 
+		 
 	}
 	
 	 @Override
@@ -67,7 +67,7 @@ public class RoleCommandListener extends ListenerAdapter implements BotCommand {
 	        	}
 	        }
 	        else if(message.startsWith("!test")) {
-	        	h2test.testSaveAndRetrieveUserPokemon();
+	        	//h2test.testSaveAndRetrieveUserPokemon();
 	        }
 	    }
 	 

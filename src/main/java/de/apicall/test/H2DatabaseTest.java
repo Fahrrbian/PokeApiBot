@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Service
 @Transactional
 public class H2DatabaseTest {
-
+/*
     @Autowired
     private UserPokemonRepository userPokemonRepository;
 
@@ -44,7 +44,8 @@ public class H2DatabaseTest {
         UserPokemon savedUserPokemon = userPokemonRepository.save(userPokemon);
 
         entityManager.flush(); 
+        entityManager.persist(pokemon); 
         
         System.out.println("UserPokemon erfolgreich gespeichert: " + savedUserPokemon);
-    }
+    }*/
 }

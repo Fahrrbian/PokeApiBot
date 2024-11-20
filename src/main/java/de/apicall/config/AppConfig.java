@@ -12,6 +12,8 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import de.apicall.commands.ApiCommand;
 import de.apicall.controller.ApiController;
+import de.apicall.data.DataListener;
+import de.apicall.data.H2DataService;
 import de.apicall.evolutions.EvolutionController;
 import de.apicall.repository.PokemonRepository;
 import de.apicall.repository.PokemonRepositoryCustomImpl;
@@ -40,8 +42,8 @@ public class AppConfig {
         return new ApiCommand(restTemplate, messageService, apiController, evocontroller, roleConfig);
     }
     @Bean 
-    public RoleCommandListener roleCommandListener(RoleService roleService, PokemonService pokemonService, H2DatabaseTest h2test) {
-    	return new RoleCommandListener(roleService, pokemonService, h2test); 
+    public RoleCommandListener roleCommandListener(RoleService roleService, PokemonService pokemonService) {
+    	return new RoleCommandListener(roleService, pokemonService); 
     }
     @Bean 
     public PokemonRepository pokemonRepository() {
@@ -54,7 +56,7 @@ public class AppConfig {
     @Bean 
     public UserPokemonRepository userPokemonRepository() {
     	return new UserPokemonRepositoryCustomImpl(); 
-    }
+    }    
     @Bean 
     public LocalContainerEntityManagerFactoryBean entityManagerFactory (DataSource dataSource, JpaProperties jpaProperties) {
     	LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
