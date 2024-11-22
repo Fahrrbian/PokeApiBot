@@ -45,6 +45,4 @@ public class Pokemon {
 	public void setShiny(boolean shiny) {
 		this.shiny = shiny;
 	} 
-	
-	
 }

@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 
 @Entity 
-@Table(name = "users")
+@Table(name = "USERTABLE")
 public class User {
 
 	@Id
@@ -25,11 +25,11 @@ public class User {
 	public Long getUserId() {
 		return userId;
 	}
-
+/*
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
-
+*/
 	public String getDiscordId() {
 		return discordId;
 	}
@@ -53,6 +53,4 @@ public class User {
 	public void setUserPokemons(List<UserPokemon> userPokemons) {
 		this.userPokemons = userPokemons;
 	} 
-	
-	
 }

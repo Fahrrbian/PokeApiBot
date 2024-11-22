@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 @Service
@@ -20,6 +22,8 @@ import javax.transaction.Transactional;
 public class H2DataService {
 	
 	 
+	@PersistenceContext
+	private EntityManager entityManager; 
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -38,7 +42,20 @@ public class H2DataService {
 	
 	public void initializeData() {
 		User user = new User(); 
+		user.setDiscordId("783795730757976075");
+		user.setUsername("ADMIN");
+		entityManager.persist(user); 
+		
 		Pokemon pokemon = new Pokemon(); 
+		pokemon.setName("bulbasaur"); 
+		pokemon.setLevel(0);
+		pokemon.setShiny(false);
+		//entityManager.persist(pokemon); 
+		System.out.println("Gespeichert!");
+		
+		entityManager.flush();
+		entityManager.flush();
+		
 		UserPokemon userPokemon = new UserPokemon(); 
 	}
 }
