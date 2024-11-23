@@ -54,7 +54,7 @@ public class H2DataService {
 		System.out.println("Gespeichert!");
 		
 		entityManager.flush();
-		entityManager.flush();
+		
 		
 		UserPokemon userPokemon = new UserPokemon(); 
 	}

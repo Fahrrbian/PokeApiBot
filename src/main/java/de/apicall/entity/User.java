@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 
 @Entity 
-@Table(name = "USERTABLE")
+@Table(name = "user_table")
 public class User {
 
 	@Id
@@ -19,7 +19,7 @@ public class User {
 	@Column(nullable=false)
 	private String username; 
 	
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user", cascade = CascadeType.ALL, orphanRemoval =true)
 	private List<UserPokemon> userPokemons;
 
 	public Long getUserId() {
