@@ -1,7 +1,6 @@
 package de.apicall.test;
 import de.apicall.entity.UserPokemon;
 import de.apicall.entity.Pokemon;
-import de.apicall.entity.User;
 import de.apicall.repository.UserPokemonRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
 package de.apicall.data;
 
 import de.apicall.entity.Pokemon;
-import de.apicall.entity.User;
 import de.apicall.entity.UserPokemon;
+import de.apicall.entity.UserTable;
 import de.apicall.repository.PokemonRepository;
 import de.apicall.repository.UserPokemonRepository;
 import de.apicall.repository.UserRepository;
@@ -24,7 +24,7 @@ public class H2DataService {
 	 
 	@PersistenceContext
 	private EntityManager entityManager; 
-	
+
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
@@ -38,9 +38,11 @@ public class H2DataService {
 		this.userPokemonRepository = userPokemonRepository;  
 		this.pokemonRepository = pokemonRepository; 
 	}
-
+	
 	
 	public void initializeData() {
+		createUserDirectly();
+		/*
 		User user = new User(); 
 		user.setDiscordId("783795730757976075");
 		user.setUsername("ADMIN");
@@ -56,6 +58,15 @@ public class H2DataService {
 		entityManager.flush();
 		
 		
-		UserPokemon userPokemon = new UserPokemon(); 
+		UserPokemon userPokemon = new UserPokemon(); */ 
+	}
+	public void createUserDirectly() {
+	    UserTable user = new UserTable();
+	    user.setDiscordId("123456789");
+	    user.setUsername("TestUser");
+	    entityManager.persist(user);
+
+	    entityManager.flush();
+	    System.out.println("User direkt gespeichert!");
 	}
 }

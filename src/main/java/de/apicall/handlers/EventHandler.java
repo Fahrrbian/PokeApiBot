@@ -13,7 +13,7 @@ public class EventHandler {
         jda.addEventListener(new ReadyListener());    
 		// Weitere Events hinzufügen
         jda.addEventListener(new RoleListener()); 
-        jda.addEventListener(new DataListener());
+        //jda.addEventListener(new DataListener());
     }
 
 }

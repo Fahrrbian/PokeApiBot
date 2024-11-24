@@ -3,8 +3,8 @@ package de.apicall.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import de.apicall.entity.User;
 import de.apicall.entity.UserPokemon;
+import de.apicall.entity.UserTable;
 import de.apicall.repository.UserPokemonRepository;
 import de.apicall.repository.UserRepository;
 import de.apicall.entity.Pokemon;
@@ -31,7 +31,7 @@ public class PokemonService {
 	     */
 	    
 	    public List<String> getPokemonsForUser(String discordId) {
-	        User user = userRepository.findByDiscordId(discordId)
+	        UserTable user = userRepository.findByDiscordId(discordId)
 	                .orElseThrow(() -> new IllegalArgumentException("Benutzer nicht gefunden"));
 
 	        List<UserPokemon> userPokemons = userPokemonRepository.findByUser(user);

@@ -6,9 +6,9 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import de.apicall.entity.User;
+import de.apicall.entity.UserTable;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-	Optional<User> findByDiscordId(String discordId); 
+public interface UserRepository extends JpaRepository<UserTable, Long> {
+	Optional<UserTable> findByDiscordId(String discordId); 
 }

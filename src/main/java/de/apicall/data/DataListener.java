@@ -18,11 +18,11 @@ public class DataListener extends ListenerAdapter {
 	    public void setH2DataService(H2DataService dataService) {
 	        this.dataService = dataService; // Setter-Injektion
 	    }
-	*/
+	
 	@Override 
 	public void onReady(@NotNull ReadyEvent event) {
 		H2DataService dataService = SpringContextHelper.getBean(H2DataService.class); 
 		dataService.initializeData();
-	}
+	}*/
 	
 }

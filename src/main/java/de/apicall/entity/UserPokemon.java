@@ -14,7 +14,7 @@ public class UserPokemon {
 	
 	@ManyToOne
 	@JoinColumn(name="user_id", nullable = false)
-	private User user; 
+	private UserTable user; 
 	
 	@ManyToOne
 	@JoinColumn(name= "pokemon_id", nullable=false)
@@ -28,11 +28,11 @@ public class UserPokemon {
 		this.userPokemonId = userPokemonId;
 	}
 
-	public User getUser() {
+	public UserTable getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserTable user) {
 		this.user = user;
 	}
 

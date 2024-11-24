@@ -17,10 +17,11 @@ import de.apicall.data.DataListener;
 import de.apicall.handlers.CommandHandler;
 import de.apicall.handlers.EventHandler;
 import de.apicall.utils.CommandRegistry;
+import de.apicall.utils.H2DataInitializer;
 import de.apicall.utils.SpringContextHelper;
 
 @SpringBootApplication(scanBasePackages = "de.apicall")
-@EntityScan(basePackages = "de.apicall.entity")
+//@EntityScan(basePackages = "de.apicall.entity")
 public class BotMain implements CommandLineRunner {
 	
     private static final String DISCORD_TOKEN_ENV = "DISCORD_TOKEN";
@@ -28,6 +29,9 @@ public class BotMain implements CommandLineRunner {
     @Autowired 
     private CommandRegistry commandRegistry; 
 
+    @Autowired
+    private H2DataInitializer dataInitializer;  
+    
     @Autowired 
     private ApplicationContext applicationContext; 
     
@@ -47,9 +51,11 @@ public class BotMain implements CommandLineRunner {
 	                .enableIntents(GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES)
 	                .setActivity(Activity.playing("API-READY"))
 	                .build();
-	      jda.addEventListener(applicationContext.getBean(DataListener.class));
+	      //jda.addEventListener(applicationContext.getBean(DataListener.class));	      	 
 	      new CommandHandler(jda, commandRegistry); 
-	      new EventHandler(jda); 	 	       
+	      new EventHandler(jda);
+	      dataInitializer.onApplicationReady(); 
+	      System.out.println("Bot und Datenbank initialisiert.");
 	}
 	
 	   private String getDiscordToken() {
