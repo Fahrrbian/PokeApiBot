@@ -53,5 +53,16 @@
 			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="C:/Users/holtapef/.m2/repository/org/springframework/boot/spring-boot-test-autoconfigure/2.6.8/spring-boot-test-autoconfigure-2.6.8.jar" sourcepath="C:/Users/holtapef/.m2/repository/org/springframework/boot/spring-boot-test-autoconfigure/2.6.8/spring-boot-test-autoconfigure-2.6.8-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="test" value="true"/>
+			<attribute name="maven.groupId" value="org.springframework.boot"/>
+			<attribute name="maven.artifactId" value="spring-boot-test-autoconfigure"/>
+			<attribute name="maven.version" value="2.6.8"/>
+			<attribute name="maven.scope" value="test"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

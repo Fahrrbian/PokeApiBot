@@ -1,10 +1,8 @@
 package de.apicall.data;
 
 import de.apicall.entity.Pokemon;
-import de.apicall.entity.UserPokemon;
 import de.apicall.entity.UserTable;
 import de.apicall.repository.PokemonRepository;
-import de.apicall.repository.UserPokemonRepository;
 import de.apicall.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +27,11 @@ public class H2DataService {
 	private UserRepository userRepository;
 	@Autowired
 	private PokemonRepository pokemonRepository;
-	@Autowired
-	private UserPokemonRepository userPokemonRepository; 
+ 
 
 	@Autowired
-	public void setDependencies(UserRepository userRepository, PokemonRepository pokemonRepository, UserPokemonRepository userPokemonRepository) {
-		this.userRepository = userRepository; 
-		this.userPokemonRepository = userPokemonRepository;  
+	public void setDependencies(UserRepository userRepository, PokemonRepository pokemonRepository) {
+		this.userRepository = userRepository; 	
 		this.pokemonRepository = pokemonRepository; 
 	}
 	

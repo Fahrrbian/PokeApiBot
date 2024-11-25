@@ -24,9 +24,6 @@ public class UserTable {
 	
 	@Column(nullable=false)
 	private String username = "DEFAULT_USERNAME"; 
-	
-	@OneToMany(mappedBy="user", cascade = CascadeType.ALL, orphanRemoval =true)
-	private List<UserPokemon> userPokemons = new ArrayList<>();
  
 	public Long getUserId() {
 		return userId;
@@ -50,12 +47,4 @@ public class UserTable {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
-	public List<UserPokemon> getUserPokemons() {
-		return userPokemons;
-	}
-
-	public void setUserPokemons(List<UserPokemon> userPokemons) {
-		this.userPokemons = userPokemons;
-	} 
 }
