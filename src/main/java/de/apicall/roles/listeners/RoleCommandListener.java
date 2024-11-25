@@ -11,19 +11,16 @@ import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
 import de.apicall.roles.services.RoleService;
-import de.apicall.services.PokemonService;
-import de.apicall.test.H2DatabaseTest;
 import de.apicall.commands.BotCommand;
 import de.apicall.data.H2DataService;
 
 public class RoleCommandListener extends ListenerAdapter implements BotCommand {
 
 	private RoleService roleService; 
-	private PokemonService pokemonService;
 	
-	public RoleCommandListener(RoleService roleService, PokemonService pokemonService) {
+	public RoleCommandListener(RoleService roleService) {
 		this.roleService = roleService; 
-		this.pokemonService = pokemonService; 
+	 
 		 
 	}
 	
@@ -49,6 +46,7 @@ public class RoleCommandListener extends ListenerAdapter implements BotCommand {
 	            }
 	        }
 	        }
+	        }/*
 	        else if(message.startsWith("!myPokemon")) {	        
 	        	String[] args = message.split(" ");
 	        	if(args[0].equalsIgnoreCase("!myPokemon")) {
@@ -70,7 +68,7 @@ public class RoleCommandListener extends ListenerAdapter implements BotCommand {
 	        	//h2test.testSaveAndRetrieveUserPokemon();
 	        }
 	    }
-	 
+	 */
 	  
 		@Override
 		public void register(JDA jda) {

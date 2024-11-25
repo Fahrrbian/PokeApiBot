@@ -7,13 +7,13 @@ import net.dv8tion.jda.api.entities.MessageActivity.Application;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
-import de.apicall.data.DataListener;
 import de.apicall.handlers.CommandHandler;
 import de.apicall.handlers.EventHandler;
 import de.apicall.utils.CommandRegistry;
@@ -21,7 +21,8 @@ import de.apicall.utils.H2DataInitializer;
 import de.apicall.utils.SpringContextHelper;
 
 @SpringBootApplication(scanBasePackages = "de.apicall")
-//@EntityScan(basePackages = "de.apicall.entity")
+@EntityScan(basePackages = "de.apicall.entity")
+@EnableJpaRepositories(basePackages = "de.apicall.repository")
 public class BotMain implements CommandLineRunner {
 	
     private static final String DISCORD_TOKEN_ENV = "DISCORD_TOKEN";
