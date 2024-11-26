@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
@@ -37,13 +38,8 @@ public class AppConfig {
     public RoleCommandListener roleCommandListener(RoleService roleService) {
     	return new RoleCommandListener(roleService); 
     } 
-    @Bean 
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory (DataSource dataSource, JpaProperties jpaProperties) {
-    	LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-    	factoryBean.setDataSource(dataSource);
-    	factoryBean.setPackagesToScan("de.apicall.entity");
-    	factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-    	factoryBean.setJpaPropertyMap(jpaProperties.getProperties()); 
-    	return factoryBean; 
+    @Bean
+    public InstrumentationLoadTimeWeaver loadTimeWeaver() {
+        return new InstrumentationLoadTimeWeaver();
     }
 }

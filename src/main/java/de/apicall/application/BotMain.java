@@ -22,7 +22,7 @@ import de.apicall.utils.SpringContextHelper;
 
 @SpringBootApplication(scanBasePackages = "de.apicall")
 @EntityScan(basePackages = "de.apicall.entity")
-@EnableJpaRepositories(basePackages = "de.apicall.repository")
+//@EnableJpaRepositories(basePackages = "de.apicall.repository")
 public class BotMain implements CommandLineRunner {
 	
     private static final String DISCORD_TOKEN_ENV = "DISCORD_TOKEN";

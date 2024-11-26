@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
@@ -38,17 +38,17 @@ public class H2DataService {
 	public void initializeData() {
 		
 		
-	
+	/*
 		Pokemon pokemon = new Pokemon(); 
 		pokemon.setName("bulbasaur"); 
 		pokemon.setLevel(0);
 		pokemon.setShiny(false);
 		entityManager.persist(pokemon); 
 		System.out.println("Gespeichert!");
-		
+		//Warum in der Eroor message das hier  insert into pokemon (pokemonId, level, name, shiny) values (default, ?, ?, ?)
 		entityManager.flush();
 		
-		
+		*/
 		 
 	}
 	
