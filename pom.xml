@@ -5,60 +5,93 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>APICall</name>
   <!-- Java-Version einstellen -->
-    <properties>
-    	<java.version>17</java.version> <!-- Oder die JDK-Version, die Sie verwenden -->
-    	<spring-boot.version>2.6.8</spring-boot.version>
-    </properties>
+   <parent>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-parent</artifactId>
+      <version>3.0.13</version>
+      <relativePath/>
+  </parent>
 
+  <!-- Java-Version -->
+  <properties>
+      <java.version>17</java.version>
+  </properties>
 
-
-    <!-- Abhängigkeiten hinzufügen -->
-    <dependencies>
-        <!-- JDA-Abhängigkeit -->
-        <dependency>
-            <groupId>net.dv8tion</groupId>
-            <artifactId>JDA</artifactId>
-            <version>5.0.0-alpha.10</version> <!-- Aktuelle Version prüfen -->
-        </dependency>
-	<dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter</artifactId>
-          <version>2.6.8</version>
+  <dependencies>
+      <!-- JDA für Discord Bot -->
+      <dependency>
+          <groupId>net.dv8tion</groupId>
+          <artifactId>JDA</artifactId>
+          <version>5.0.0-alpha.10</version>
       </dependency>
 
-        <!-- Spring Boot Starter Web für RestTemplate und REST-Controller -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>2.6.8</version>
-     	</dependency>
-     	     <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <version>2.6.8</version>
-        </dependency>
-		<dependency>
-		    <groupId>org.json</groupId>
-		    <artifactId>json</artifactId>
-		    <version>20210307</version>
-		</dependency>
+      <!-- Spring Boot Starter für grundlegende Spring Funktionalitäten -->
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter</artifactId>
+      </dependency>
 
-    </dependencies>
+      <!-- Spring Boot Starter Web für REST-Controller -->
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-web</artifactId>
+      </dependency>
 
-    <build>
-    <plugins>
-        <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-            <executions>
-                <execution>
-                    <goals>
-                        <goal>repackage</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-    </plugins>
-</build>
+      <!-- JPA für Datenbankzugriff -->
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-data-jpa</artifactId>          
+      </dependency>     
+       <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>6.2.12.Final</version>      
+    </dependency>
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-instrument</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-devtools</artifactId>
+    <scope>runtime</scope>
+</dependency>
+
+      <!-- H2 Datenbank -->
+      <dependency>
+          <groupId>com.h2database</groupId>
+          <artifactId>h2</artifactId>
+          <scope>runtime</scope>
+      </dependency>
+
+      <!-- JSON-Verarbeitung -->
+      <dependency>
+          <groupId>org.json</groupId>
+          <artifactId>json</artifactId>
+          <version>20210307</version>
+      </dependency>
+
+      <!-- Spring Boot Test Starter -->
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-test</artifactId>
+          <scope>test</scope>
+      </dependency>
+  </dependencies>
+
+  <build>
+      <plugins>
+          <plugin>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-maven-plugin</artifactId>                          
+              <executions>
+                  <execution>
+                      <goals>
+                          <goal>repackage</goal>
+                      </goals>
+                  </execution>
+              </executions>
+          </plugin>
+      </plugins>
+  </build>
 </project>

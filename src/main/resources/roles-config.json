@@ -1,0 +1,6 @@
+{
+  "Trainer": ["view_pokedex", "start_battle"],
+  "Professor": ["view_pokedex", "analyze_pokemon", "manage_roles"],
+  "Gym Leader": ["start_battle", "create_gym_challenge"],
+  "Champion": ["start_battle", "create_gym_challenge", "create_tournament"]
+}
