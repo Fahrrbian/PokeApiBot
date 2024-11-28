@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+
 import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
@@ -14,14 +15,18 @@ import de.apicall.roles.services.RoleService;
 import de.apicall.commands.BotCommand;
 import de.apicall.data.H2DataService;
 
+import org.jetbrains.annotations.NotNull;
+import de.apicall.roles.services.RoleService;
+import de.apicall.commands.BotCommand;
+
+
 public class RoleCommandListener extends ListenerAdapter implements BotCommand {
 
 	private RoleService roleService; 
 	
 	public RoleCommandListener(RoleService roleService) {
 		this.roleService = roleService; 
-	 
-		 
+
 	}
 	
 	 @Override
@@ -45,6 +50,7 @@ public class RoleCommandListener extends ListenerAdapter implements BotCommand {
 	                event.getChannel().sendMessage("Benutzer konnte nicht gefunden werden.").queue();
 	            }
 	        }
+
 	        }
 	        }/*
 	        else if(message.startsWith("!myPokemon")) {	        
@@ -69,6 +75,10 @@ public class RoleCommandListener extends ListenerAdapter implements BotCommand {
 	        }
 	    }
 	 */
+
+	    
+	 
+
 	  
 		@Override
 		public void register(JDA jda) {
