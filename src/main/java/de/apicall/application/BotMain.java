@@ -1,4 +1,4 @@
-package de.apicall.application;
+package de.apicall.application; 
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -38,12 +38,7 @@ public class BotMain implements CommandLineRunner {
 	                .build();
 
 	      //jda.addEventListener(applicationContext.getBean(DataListener.class));	      	 
-	      new CommandHandler(jda, commandRegistry); 
-	      
-	       
-
-
-	       
+	      new CommandHandler(jda, commandRegistry); 	      	     	       
 	      new EventHandler(jda); 
 	        
 

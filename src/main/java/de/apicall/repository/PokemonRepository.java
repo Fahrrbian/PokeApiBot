@@ -9,7 +9,7 @@ import de.apicall.entity.Pokemon;
 
 @Repository
 public interface PokemonRepository extends JpaRepository<Pokemon, Long> {
-    Optional<Pokemon> findByName(String name);
+		Optional<Pokemon> findByName(String name);
 }
 
 

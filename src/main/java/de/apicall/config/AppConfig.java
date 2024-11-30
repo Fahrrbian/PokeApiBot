@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import de.apicall.commands.ApiCommand;
 import de.apicall.controller.ApiController;
 import de.apicall.evolutions.EvolutionController;
+import de.apicall.repository.PokemonRepository;
 import de.apicall.roles.config.RoleConfigLoader;
 import de.apicall.roles.listeners.RoleCommandListener;
 import de.apicall.roles.services.RoleService;
@@ -30,11 +31,9 @@ public class AppConfig {
     @Bean 
     public RoleCommandListener roleCommandListener(RoleService roleService) {
     	return new RoleCommandListener(roleService); 
-
     } 
-    @Bean
-    public InstrumentationLoadTimeWeaver loadTimeWeaver() {
-        return new InstrumentationLoadTimeWeaver();
-
+//    @Bean 
+//    public PokemonRepository pokemonRepository() {
+//    	return null; 
+//    }
     }
-}
