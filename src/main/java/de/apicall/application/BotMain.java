@@ -9,12 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import de.apicall.application.utils.CommandRegistry;
 import de.apicall.handlers.CommandHandler;
 import de.apicall.handlers.EventHandler;
-import de.apicall.utils.CommandRegistry;
 
 
-@SpringBootApplication(scanBasePackages = "de.apicall")
+@SpringBootApplication//(scanBasePackages = "de.apicall")
 public class BotMain implements CommandLineRunner {
 	
     private static final String DISCORD_TOKEN_ENV = "DISCORD_TOKEN";
@@ -51,8 +52,4 @@ public class BotMain implements CommandLineRunner {
 	        }
 	        return token;
 	    }
-
-
-	 
-
 }

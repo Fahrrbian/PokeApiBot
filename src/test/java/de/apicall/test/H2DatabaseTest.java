@@ -1,11 +1,9 @@
 package de.apicall.test;
 
-import de.apicall.entity.Pokemon;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import de.apicall.application.entity.Pokemon;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 

@@ -2,8 +2,7 @@ package de.apicall.handlers;
 
 import org.springframework.web.client.RestTemplate;
 
-
-import de.apicall.utils.CommandRegistry;
+import de.apicall.application.utils.CommandRegistry;
 import net.dv8tion.jda.api.JDA;
 
 public class CommandHandler {

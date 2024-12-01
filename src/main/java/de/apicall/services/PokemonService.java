@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import de.apicall.entity.Pokemon;
-import de.apicall.repository.PokemonRepository;
+import de.apicall.application.entity.Pokemon;
+import de.apicall.application.repository.PokemonRepository;
 
 @Service
 public class PokemonService {

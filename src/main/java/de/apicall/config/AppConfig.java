@@ -6,10 +6,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
 import org.springframework.web.client.RestTemplate;
 
+import de.apicall.application.repository.PokemonRepository;
 import de.apicall.commands.ApiCommand;
 import de.apicall.controller.ApiController;
 import de.apicall.evolutions.EvolutionController;
-import de.apicall.repository.PokemonRepository;
 import de.apicall.roles.config.RoleConfigLoader;
 import de.apicall.roles.listeners.RoleCommandListener;
 import de.apicall.roles.services.RoleService;
