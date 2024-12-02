@@ -25,15 +25,16 @@ public class PokemonCommandLineRunner implements CommandLineRunner{
 		// TODO Auto-generated method stub
 		System.out.println("PokemonRepository bean injected: " + (pokemonRepository != null));
 
-		 Pokemon pikachu = new Pokemon();
-	        pikachu.setName("Pikachu");
-	      
+		 Pokemon pidgey = new Pokemon();
+	        pidgey.setName("Pidgey");
+	        pidgey.setLevel(0);
+	        pidgey.setShiny(false);
 
-	        pokemonRepository.save(pikachu);
-	        System.out.println("Gespeichertes Pokémon: " + pikachu.getName());
+	        pokemonRepository.save(pidgey);
+	        System.out.println("Gespeichertes Pokémon: " + pidgey.getName());
 
 	        // Pokémon aus der Datenbank laden
-	        Pokemon foundPokemon = pokemonRepository.findByName("Pikachu")
+	        Pokemon foundPokemon = pokemonRepository.findByName("Pidgey")
 	                .orElseThrow(() -> new RuntimeException("Pokémon nicht gefunden!"));
 	        System.out.println("Gefundenes Pokémon: " + foundPokemon.getName());
 	    }

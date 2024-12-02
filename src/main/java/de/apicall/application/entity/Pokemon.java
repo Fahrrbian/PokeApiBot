@@ -11,20 +11,6 @@ import jakarta.persistence.GenerationType;
 //@Table(name="pokemon")
 @Entity
 public class Pokemon {
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String name;
-    
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-    
-    
-	/*
   
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
@@ -61,5 +47,5 @@ public class Pokemon {
 
 	public void setShiny(boolean shiny) {
 		this.shiny = shiny;
-	}*/ 
+	}
 }

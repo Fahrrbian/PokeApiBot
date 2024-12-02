@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import de.apicall.commands.BotCommand;
+import de.apicall.application.commands.BotCommand;
 import net.dv8tion.jda.api.JDA;
 
 @Component

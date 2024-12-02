@@ -10,9 +10,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import de.apicall.application.handlers.CommandHandler;
+import de.apicall.application.handlers.EventHandler;
 import de.apicall.application.utils.CommandRegistry;
-import de.apicall.handlers.CommandHandler;
-import de.apicall.handlers.EventHandler;
 
 
 @SpringBootApplication//(scanBasePackages = "de.apicall")
