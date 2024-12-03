@@ -24,19 +24,24 @@ public class PokemonCommandLineRunner implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("PokemonRepository bean injected: " + (pokemonRepository != null));
-
+		
 		 Pokemon pidgey = new Pokemon();
-	        pidgey.setName("Pidgey");
+		 	String pokeName = "Pidgey"; 
+	        pidgey.setName(pokeName);
 	        pidgey.setLevel(0);
 	        pidgey.setShiny(false);
-
+	        
+	        
+	        
+	        if(pokemonRepository.findByName(pokeName).isEmpty()) {
 	        pokemonRepository.save(pidgey);
 	        System.out.println("Gespeichertes Pokémon: " + pidgey.getName());
 
 	        // Pokémon aus der Datenbank laden
-	        Pokemon foundPokemon = pokemonRepository.findByName("Pidgey")
+	        Pokemon foundPokemon = pokemonRepository.findByName(pokeName)
 	                .orElseThrow(() -> new RuntimeException("Pokémon nicht gefunden!"));
 	        System.out.println("Gefundenes Pokémon: " + foundPokemon.getName());
+	        }
 	    }
 
 }

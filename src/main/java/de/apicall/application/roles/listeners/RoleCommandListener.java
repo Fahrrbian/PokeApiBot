@@ -13,6 +13,7 @@ import java.util.List;
 import org.jetbrains.annotations.NotNull;
 
 import de.apicall.application.commands.BotCommand;
+import de.apicall.application.roles.enums.CommandName;
 import de.apicall.application.roles.services.RoleService;
 
 
@@ -32,7 +33,7 @@ public class RoleCommandListener extends ListenerAdapter implements BotCommand {
 	 @Override
 	    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
 	        String message = event.getMessage().getContentRaw();	       
-	        if(message.startsWith("!trainer")) { 	      
+	        if(message.startsWith(CommandName.TRAINER.getCommand())) { 	      
 	        String[] args = message.split(" ");  
 	        if (args[0].equalsIgnoreCase("!trainer")) {
 	            if (args.length < 2) {

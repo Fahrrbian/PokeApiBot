@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import de.apicall.application.controller.ApiController;
 import de.apicall.application.evolutions.EvolutionController;
 import de.apicall.application.roles.config.RoleConfigLoader;
+import de.apicall.application.roles.enums.CommandName;
 import de.apicall.application.services.MessageService;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -27,6 +28,8 @@ public class ApiCommand extends ListenerAdapter implements BotCommand {
 	private final EvolutionController evocontroller;
 	private final RoleConfigLoader roleConfig;
 	
+	private final String pokemonCommand = "!pokemon"; 
+	private final String commandInfo = "!commands"; 
 	
     public ApiCommand(RestTemplate restTemplate, MessageService messageService, 
     		ApiController apicontroller, EvolutionController evocontroller, RoleConfigLoader roleConfig) {
@@ -50,6 +53,13 @@ public class ApiCommand extends ListenerAdapter implements BotCommand {
                   
                  event.getChannel().sendFile(apicontroller.getData().getBody(), "pokemon.png").queue();
              }
+    	}
+    	else if(message.startsWith("!commands")) {
+    		
+    	    String allCommands = String.join("\n", CommandName.getAllCommandsWithDescriptions());
+    	    event.getChannel().sendMessage("Hier sind die verfügbaren Commands:\n" + allCommands).queue();
+
+    		 
     	}
     	else if(message.startsWith("!info")) {
      	   String[] args = message.split(" ");
