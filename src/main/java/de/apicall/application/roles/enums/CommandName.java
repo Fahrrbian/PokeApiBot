@@ -9,8 +9,10 @@ public enum CommandName {
 	    COMMANDS("!commands", "Listet alle verfügbaren Commands auf"),
 	    ABILITIES("!abilities", "Zeigt Fähigkeiten eines Pokemons an"),
 	    EVOLVE("!evolution", "Entwickelt ein Pokemon weiter"),
-		PERMISSION("!permission", "Ruft Berechtigung ab"); 
+		PERMISSION("!permission", "Ruft Berechtigung ab"), 
+		INFO("!info", "Ruft die infos zum Pokemon ab"),
 		
+		TRAINER("!trainer", "Ruft die Infos zum Trainer ab"); 
 
 	    private final String command;
 	    private final String description;

@@ -27,10 +27,7 @@ public class ApiCommand extends ListenerAdapter implements BotCommand {
 	private final ApiController apicontroller;
 	private final EvolutionController evocontroller;
 	private final RoleConfigLoader roleConfig;
-	
-	private final String pokemonCommand = "!pokemon"; 
-	private final String commandInfo = "!commands"; 
-	
+	  
     public ApiCommand(RestTemplate restTemplate, MessageService messageService, 
     		ApiController apicontroller, EvolutionController evocontroller, RoleConfigLoader roleConfig) {
         this.restTemplate = restTemplate;    
@@ -46,7 +43,7 @@ public class ApiCommand extends ListenerAdapter implements BotCommand {
     public void onMessageReceived(MessageReceivedEvent event) {
         String message = event.getMessage().getContentRaw();      
         try {             
-    	if (message.startsWith("!pokemon")) {
+    	if (message.startsWith(CommandName.POKEMON.getCommand())) {
         	String[] args = message.split(" ");         	        	        		    
         	 if (args.length > 1) {
                  messageService.setCommandArgument(args[1]);
@@ -61,7 +58,7 @@ public class ApiCommand extends ListenerAdapter implements BotCommand {
 
     		 
     	}
-    	else if(message.startsWith("!info")) {
+    	else if(message.startsWith(CommandName.INFO.getCommand())) {
      	   String[] args = message.split(" ");
      	   if (args.length > 1) {
      		   messageService.setCommandArgument(args[1]);
@@ -69,7 +66,7 @@ public class ApiCommand extends ListenerAdapter implements BotCommand {
      		   event.getChannel().sendMessage(info).queue(); 
      	   }
          }
-    	 else if(message.startsWith("!abilities")) {
+    	 else if(message.startsWith(CommandName.ABILITIES.getCommand())) {
         	   String[] args = message.split(" ");
         	   if (args.length > 1) {
         		   messageService.setCommandArgument(args[1]);
@@ -77,7 +74,7 @@ public class ApiCommand extends ListenerAdapter implements BotCommand {
         		   event.getChannel().sendMessage(args[1] + " hat die Fähigkeiten " + abilities).queue(); 
         	   }
             } 
-    	   else if (message.startsWith("!permission")) {    		    	    		 
+    	   else if (message.startsWith(CommandName.PERMISSION.getCommand())) {    		    	    		 
 		        String[] args = message.split(" ");
    		    if (args.length > 1) {
    		        messageService.setCommandArgument(args[1]);
@@ -94,7 +91,7 @@ public class ApiCommand extends ListenerAdapter implements BotCommand {
    	    
 		    }
     	 }    	
-    	 else if (message.startsWith("!evolution")) {
+    	 else if (message.startsWith(CommandName.EVOLVE.getCommand())) {
     		    String[] args = message.split(" ");
     		    if (args.length > 1) {
     		        messageService.setCommandArgument(args[1]);
