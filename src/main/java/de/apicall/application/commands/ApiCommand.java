@@ -48,7 +48,7 @@ public class ApiCommand extends ListenerAdapter implements BotCommand {
         	 if (args.length > 1) {
                  messageService.setCommandArgument(args[1]);
                   
-                 event.getChannel().sendFile(apicontroller.getData().getBody(), "pokemon.png").queue();
+                 event.getChannel().sendFile(apicontroller.getData(message).getBody(), "pokemon.png").queue();
              }
     	}
     	else if(message.startsWith("!commands")) {

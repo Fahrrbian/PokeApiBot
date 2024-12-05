@@ -8,10 +8,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import de.apicall.application.commands.ApiCommand;
+import de.apicall.application.pokemonName.PokemonNameProvider;
 import de.apicall.application.services.MessageService;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -29,19 +31,21 @@ public class ApiController {
 
 private final RestTemplate restTemplate;
 private final MessageService messageService; 
-
+private final PokemonNameProvider pokemonNameProvider; 
 
 @Autowired
-public ApiController(RestTemplateBuilder builder, MessageService messageService) {
+public ApiController(RestTemplateBuilder builder, MessageService messageService,
+		(@Qualifier("messageServicePokemonProvider")PokemonNameProvider pokemonNameProvider) {
     this.restTemplate = builder.build();
-    this.messageService = messageService; 
+    this.messageService = messageService;
+	this.pokemonNameProvider = pokemonNameProvider; 
 }
 
 
 
 @GetMapping("/pokemon") 
-public ResponseEntity<byte[]> getData() throws Exception{
-	String pokemonName = messageService.getCommandArgument(); 
+public ResponseEntity<byte[]> getData(@RequestParam(required = false, defaultValue ="query") String source) throws Exception{
+	String pokemonName = pokemonNameProvider.getPokemonName();//messageService.getCommandArgument(); 
 	  if (pokemonName == null || pokemonName.isEmpty()) {
           //return ResponseEntity.badRequest().body("No valid Pokémon name provided.");
       }
