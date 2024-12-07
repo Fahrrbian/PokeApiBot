@@ -3,17 +3,21 @@ package de.apicall.application.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.buffer.JettyDataBufferFactory;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
 import org.springframework.web.client.RestTemplate;
 
 import de.apicall.application.commands.ApiCommand;
 import de.apicall.application.controller.ApiController;
+import de.apicall.application.events.ReadyListener;
 import de.apicall.application.evolutions.EvolutionController;
 import de.apicall.application.repository.PokemonRepository;
 import de.apicall.application.roles.config.RoleConfigLoader;
 import de.apicall.application.roles.listeners.RoleCommandListener;
 import de.apicall.application.roles.services.RoleService;
 import de.apicall.application.services.MessageService;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
 
 
 @Configuration
@@ -32,8 +36,6 @@ public class AppConfig {
     public RoleCommandListener roleCommandListener(RoleService roleService) {
     	return new RoleCommandListener(roleService); 
     } 
-//    @Bean 
-//    public PokemonRepository pokemonRepository() {
-//    	return null; 
-//    }
+    
+    
     }

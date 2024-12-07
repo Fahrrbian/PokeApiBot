@@ -5,11 +5,14 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
+import org.apache.catalina.core.ApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import ch.qos.logback.core.Context;
+import de.apicall.application.events.ReadyListener;
 import de.apicall.application.handlers.CommandHandler;
 import de.apicall.application.handlers.EventHandler;
 import de.apicall.application.utils.CommandRegistry;
@@ -21,21 +24,25 @@ public class BotMain implements CommandLineRunner {
     private static final String DISCORD_TOKEN_ENV = "DISCORD_TOKEN";
 
     @Autowired 
+    private ReadyListener readyListener;
+    
+    @Autowired 
     private CommandRegistry commandRegistry; 
     
     public static void main(String[] args) {
-    	SpringApplication.run(BotMain.class, args); 
+    	//SpringApplication.run(BotMain.class, args);
+    	SpringApplication.run(BotMain.class, args);
     }
 
 	@Override
 	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
-	     String token = getDiscordToken(); 
-	     
+		// TODO Auto-generated method stub		 
+		
+	     String token = getDiscordToken(); 	     	     
 
 	        JDA jda = JDABuilder.createDefault(token)
 	                .enableIntents(GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES)
-	                .setActivity(Activity.playing("API-READY"))
+	                .setActivity(Activity.playing("API-READY"))	   
 	                .build();
 
 	      //jda.addEventListener(applicationContext.getBean(DataListener.class));	      	 

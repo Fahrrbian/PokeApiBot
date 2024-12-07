@@ -1,4 +1,4 @@
-package de.apicall.application.pokemonName;
+package de.apicall.application.events.pokemonName;
 
 import org.springframework.stereotype.Component;
 

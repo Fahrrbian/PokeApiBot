@@ -1,6 +1,7 @@
 package de.apicall.application.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import de.apicall.application.commands.ApiCommand;
-import de.apicall.application.pokemonName.PokemonNameProvider;
+import de.apicall.application.events.pokemonName.PokemonNameProvider;
 import de.apicall.application.services.MessageService;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -35,12 +36,11 @@ private final PokemonNameProvider pokemonNameProvider;
 
 @Autowired
 public ApiController(RestTemplateBuilder builder, MessageService messageService,
-		(@Qualifier("messageServicePokemonProvider")PokemonNameProvider pokemonNameProvider) {
+		@Qualifier("messageServicePokemonNameProvider")PokemonNameProvider pokemonNameProvider) { 
     this.restTemplate = builder.build();
     this.messageService = messageService;
-	this.pokemonNameProvider = pokemonNameProvider; 
+	this.pokemonNameProvider = pokemonNameProvider;
 }
-
 
 
 @GetMapping("/pokemon") 
@@ -55,8 +55,8 @@ public ResponseEntity<byte[]> getData(@RequestParam(required = false, defaultVal
     headers.setContentType(MediaType.IMAGE_PNG); 
      
     return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
-	
 	}
+
 @GetMapping("/pokemon/info") 
 public ResponseEntity<String> getPokemonInfo() {
 	String pokemonName = messageService.getCommandArgument(); 

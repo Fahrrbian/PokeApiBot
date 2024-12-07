@@ -1,4 +1,4 @@
-package de.apicall.application.pokemonName;
+package de.apicall.application.events.pokemonName;
 
 public interface PokemonNameProvider {
 	String getPokemonName(); 
