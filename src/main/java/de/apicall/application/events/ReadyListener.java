@@ -19,22 +19,13 @@ public class ReadyListener extends ListenerAdapter {
 	private PokemonNameProvider pokemonNameProvider; 
 	private PokemonNameProviderFactory pokemonNameProviderFactory; 
 	
-	public void setApiController(ApiController apiController) {
+	public ReadyListener(ApiController apiController, PokemonNameProviderFactory pokemonNameProviderFactory) {
 		this.apicontroller = apiController; 
+		this.pokemonNameProviderFactory = pokemonNameProviderFactory;
+		 
 	}
-	public void setPokemonNameProviderFactory(PokemonNameProviderFactory pokemonNameProviderFactory) {
-		this.pokemonNameProviderFactory= pokemonNameProviderFactory; 
-	}
-	/* @PostConstruct
-	    public void validateDependencies() {
-	        if (pokemonNameProviderFactory == null) {
-	            throw new IllegalStateException("PokemonNameProviderFactory wurde nicht gesetzt!");
-	        }
-	        if (apicontroller == null) {
-	            throw new IllegalStateException("ApiController wurde nicht gesetzt!");
-	        }
-	    }
-	*/
+	
+
     @Override
     public void onReady(ReadyEvent event) {
         System.out.println("Bot ist eingeloggt als " + event.getJDA().getSelfUser().getAsTag());
@@ -53,7 +44,8 @@ public class ReadyListener extends ListenerAdapter {
                     .setTopic("Dieser Kanal wurde automatisch erstellt.")
                     .queue(channel -> {
                         try {
-                        	String query = pokemonNameProvider.getPokemonName();  
+                        	String query = pokemonNameProvider.getPokemonName();
+                        	System.out.println("QUERY PARAMTER///////////" + query);
 							channel.sendFile(apicontroller.getData(query).getBody(), "pokemon.png").queue();
 						} catch (Exception e) {
 							// TODO Auto-generated catch block

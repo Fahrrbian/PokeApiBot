@@ -44,12 +44,12 @@ public ApiController(RestTemplateBuilder builder, MessageService messageService,
 
 
 @GetMapping("/pokemon") 
-public ResponseEntity<byte[]> getData(@RequestParam(required = false, defaultValue ="query") String source) throws Exception{
-	String pokemonName = pokemonNameProvider.getPokemonName();//messageService.getCommandArgument(); 
-	  if (pokemonName == null || pokemonName.isEmpty()) {
+public ResponseEntity<byte[]> getData(String source) throws Exception{
+	//String pokemonName = pokemonNameProvider.getPokemonName();//messageService.getCommandArgument(); 
+	  if (source == null || source.isEmpty()) {
           //return ResponseEntity.badRequest().body("No valid Pokémon name provided.");
       }
-	byte[] imageBytes = getPokemonImage(pokemonName); 
+	byte[] imageBytes = getPokemonImage(source); 
      
     HttpHeaders headers = new HttpHeaders(); 
     headers.setContentType(MediaType.IMAGE_PNG); 

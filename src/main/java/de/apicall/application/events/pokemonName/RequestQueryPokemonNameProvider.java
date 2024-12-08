@@ -7,12 +7,12 @@ import jakarta.servlet.http.HttpServletRequest;
 @Component
 public class RequestQueryPokemonNameProvider implements PokemonNameProvider {
 
-	private final HttpServletRequest request; 
-	
+	//private final HttpServletRequest request; 
+	/*
 	public RequestQueryPokemonNameProvider(HttpServletRequest request) {
 		this.request = request; 
 	}
-
+*/
 	@Override
 	public String getPokemonName() {
 		// TODO Auto-generated method stub

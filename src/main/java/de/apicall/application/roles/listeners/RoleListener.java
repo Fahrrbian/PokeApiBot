@@ -5,10 +5,11 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import de.apicall.application.roles.services.RoleService;
 
-
+@Component
 public class RoleListener extends ListenerAdapter {
 
 	private final RoleService roleService = RoleService.getInstance(); 	 
