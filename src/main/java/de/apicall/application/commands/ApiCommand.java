@@ -10,6 +10,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import de.apicall.application.controller.ApiController;
+import de.apicall.application.events.pokemonName.PokemonNameProvider;
+import de.apicall.application.events.pokemonName.PokemonNameProviderFactory;
 import de.apicall.application.evolutions.EvolutionController;
 import de.apicall.application.roles.config.RoleConfigLoader;
 import de.apicall.application.roles.enums.CommandName;
@@ -27,20 +29,27 @@ public class ApiCommand extends ListenerAdapter implements BotCommand {
 	private final ApiController apicontroller;
 	private final EvolutionController evocontroller;
 	private final RoleConfigLoader roleConfig;
-	  
+	private PokemonNameProvider pokemonNameProvider; 
+	private PokemonNameProviderFactory pokemonNameProviderFactory;
+	
     public ApiCommand(RestTemplate restTemplate, MessageService messageService, 
-    		ApiController apicontroller, EvolutionController evocontroller, RoleConfigLoader roleConfig) {
+    		ApiController apicontroller, EvolutionController evocontroller, 
+    		RoleConfigLoader roleConfig, PokemonNameProvider pokemonNameProvider,
+    		PokemonNameProviderFactory pokemonNameProviderFactory) {
         this.restTemplate = restTemplate;    
         this.messageService = messageService;
 		this.apicontroller = apicontroller;
 		this.evocontroller = evocontroller;
-		this.roleConfig = roleConfig; 
+		this.roleConfig = roleConfig;
+		this.pokemonNameProvider = pokemonNameProvider; 
+		this.pokemonNameProviderFactory = pokemonNameProviderFactory;
     }
 
     
     	
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
+    	this.pokemonNameProvider = pokemonNameProviderFactory.getProvider("message");
         String message = event.getMessage().getContentRaw();      
         try {             
     	if (message.startsWith(CommandName.POKEMON.getCommand())) {
@@ -48,7 +57,7 @@ public class ApiCommand extends ListenerAdapter implements BotCommand {
         	 if (args.length > 1) {
                  messageService.setCommandArgument(args[1]);
                   
-                 event.getChannel().sendFile(apicontroller.getData(message).getBody(), "pokemon.png").queue();
+                 event.getChannel().sendFile(apicontroller.getData(pokemonNameProvider.getPokemonName()).getBody(), "pokemon.png").queue();
              }
     	}
     	else if(message.startsWith("!commands")) {

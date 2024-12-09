@@ -10,6 +10,8 @@ import org.springframework.web.client.RestTemplate;
 import de.apicall.application.commands.ApiCommand;
 import de.apicall.application.controller.ApiController;
 import de.apicall.application.events.ReadyListener;
+import de.apicall.application.events.pokemonName.PokemonNameProvider;
+import de.apicall.application.events.pokemonName.PokemonNameProviderFactory;
 import de.apicall.application.evolutions.EvolutionController;
 import de.apicall.application.repository.PokemonRepository;
 import de.apicall.application.roles.config.RoleConfigLoader;
@@ -29,8 +31,9 @@ public class AppConfig {
     }
 
     @Bean
-    public ApiCommand apiCommand(RestTemplate restTemplate, MessageService messageService, ApiController apiController, EvolutionController evocontroller, RoleConfigLoader roleConfig) {
-        return new ApiCommand(restTemplate, messageService, apiController, evocontroller, roleConfig);
+    public ApiCommand apiCommand(RestTemplate restTemplate, MessageService messageService, ApiController apiController, 
+    		EvolutionController evocontroller, RoleConfigLoader roleConfig, PokemonNameProvider pokemonNameProvider, PokemonNameProviderFactory pokemonNameProviderFactory) {
+        return new ApiCommand(restTemplate, messageService, apiController, evocontroller, roleConfig, pokemonNameProvider, pokemonNameProviderFactory);
     }
     @Bean 
     public RoleCommandListener roleCommandListener(RoleService roleService) {

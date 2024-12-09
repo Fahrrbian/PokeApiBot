@@ -44,8 +44,7 @@ public class ReadyListener extends ListenerAdapter {
                     .setTopic("Dieser Kanal wurde automatisch erstellt.")
                     .queue(channel -> {
                         try {
-                        	String query = pokemonNameProvider.getPokemonName();
-                        	System.out.println("QUERY PARAMTER///////////" + query);
+                        	String query = pokemonNameProvider.getPokemonName();                
 							channel.sendFile(apicontroller.getData(query).getBody(), "pokemon.png").queue();
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
