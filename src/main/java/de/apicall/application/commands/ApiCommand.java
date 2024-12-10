@@ -13,6 +13,7 @@ import de.apicall.application.controller.ApiController;
 import de.apicall.application.events.pokemonName.PokemonNameProvider;
 import de.apicall.application.events.pokemonName.PokemonNameProviderFactory;
 import de.apicall.application.evolutions.EvolutionController;
+import de.apicall.application.repository.PokemonRepository;
 import de.apicall.application.roles.config.RoleConfigLoader;
 import de.apicall.application.roles.enums.CommandName;
 import de.apicall.application.services.MessageService;
@@ -31,11 +32,12 @@ public class ApiCommand extends ListenerAdapter implements BotCommand {
 	private final RoleConfigLoader roleConfig;
 	private PokemonNameProvider pokemonNameProvider; 
 	private PokemonNameProviderFactory pokemonNameProviderFactory;
+	private PokemonRepository repo; 
 	
     public ApiCommand(RestTemplate restTemplate, MessageService messageService, 
     		ApiController apicontroller, EvolutionController evocontroller, 
     		RoleConfigLoader roleConfig, PokemonNameProvider pokemonNameProvider,
-    		PokemonNameProviderFactory pokemonNameProviderFactory) {
+    		PokemonNameProviderFactory pokemonNameProviderFactory, PokemonRepository repo) {
         this.restTemplate = restTemplate;    
         this.messageService = messageService;
 		this.apicontroller = apicontroller;
@@ -43,6 +45,7 @@ public class ApiCommand extends ListenerAdapter implements BotCommand {
 		this.roleConfig = roleConfig;
 		this.pokemonNameProvider = pokemonNameProvider; 
 		this.pokemonNameProviderFactory = pokemonNameProviderFactory;
+		this.repo = repo; 
     }
 
     
@@ -127,12 +130,34 @@ public class ApiCommand extends ListenerAdapter implements BotCommand {
     		        }
     		    }
     	 	}
+    	 else if(message.startsWith((CommandName.FEED.getCommand()))) {
+    		 String[] args = message.split(" ");
+ 		    //if (args.length > 1) {
+ 		        //messageService.setCommandArgument(args[1]);
+ 		        try {    		
+ 		        	repo.findById(1L).ifPresentOrElse(
+ 		        		pokemon->{
+	 		        		pokemon.addLevel(1); 		        	
+	 		        		repo.save(pokemon);	 		        		 
+	 		        		System.out.println(pokemon.getLevel()); 
+ 		        },
+ 		        		() -> {
+ 		        		throw new IllegalArgumentException("Kein Pokemon gefunden");
+ 		        		});
+ 		        
+ 		        
+    	 
     		    } catch(Exception e) {
     		    	e.printStackTrace();
     		    	System.err.print(e.getMessage());
     		    }
-    		}
-    
+ 		    }
+    	 
+    		}  catch(Exception e) {
+		    	e.printStackTrace();
+		    	System.err.print(e.getMessage());
+		    }
+    	 }
         
     
 

@@ -1,6 +1,12 @@
 package de.apicall.application.events;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import org.springframework.stereotype.Component;
 
@@ -45,7 +51,14 @@ public class ReadyListener extends ListenerAdapter {
                     .queue(channel -> {
                         try {
                         	String query = pokemonNameProvider.getPokemonName();                
-							channel.sendFile(apicontroller.getData(query).getBody(), "pokemon.png").queue();
+							//channel.sendFile(apicontroller.getData(query).getBody(), "pokemon.png").queue();
+							BufferedImage image = ImageIO.read(new ByteArrayInputStream(apicontroller.getData(query).getBody()));
+							BufferedImage resizedImage = resizeImage(image, 2560, 2560);
+							ByteArrayOutputStream baos = new ByteArrayOutputStream();
+							ImageIO.write(resizedImage, "png", baos);
+							byte[] imageBytes = baos.toByteArray();
+							
+							channel.sendFile(imageBytes, "pokemon.png").queue();
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -54,5 +67,12 @@ public class ReadyListener extends ListenerAdapter {
                         System.err.println("Fehler beim Erstellen des Kanals in " + guild.getName() + ": " + error.getMessage());
                     });
         }
+    }
+    private BufferedImage resizeImage(BufferedImage originalImage, int width, int height) {
+        BufferedImage resizedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D graphics = resizedImage.createGraphics();
+        graphics.drawImage(originalImage, 0, 0, width, height, null);
+        graphics.dispose();
+        return resizedImage;
     }
 }

@@ -32,8 +32,9 @@ public class AppConfig {
 
     @Bean
     public ApiCommand apiCommand(RestTemplate restTemplate, MessageService messageService, ApiController apiController, 
-    		EvolutionController evocontroller, RoleConfigLoader roleConfig, PokemonNameProvider pokemonNameProvider, PokemonNameProviderFactory pokemonNameProviderFactory) {
-        return new ApiCommand(restTemplate, messageService, apiController, evocontroller, roleConfig, pokemonNameProvider, pokemonNameProviderFactory);
+    		EvolutionController evocontroller, RoleConfigLoader roleConfig, PokemonNameProvider pokemonNameProvider, PokemonNameProviderFactory pokemonNameProviderFactory, 
+    		PokemonRepository repo) {
+        return new ApiCommand(restTemplate, messageService, apiController, evocontroller, roleConfig, pokemonNameProvider, pokemonNameProviderFactory, repo);
     }
     @Bean 
     public RoleCommandListener roleCommandListener(RoleService roleService) {

@@ -20,7 +20,7 @@ public class Pokemon {
 	private String name; 
 	
 	@Column(nullable = false)
-    private int level;
+    private double level = 0;
 	
 	@Column(nullable=false)
 	private boolean shiny;
@@ -35,10 +35,10 @@ public class Pokemon {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getLevel() {
+	public double getLevel() {
 		return level; 
 	}
-	public void setLevel(int level) {
+	public void setLevel(double level) {
 		this.level = level; 
 	}
 	public boolean isShiny() {
@@ -48,4 +48,8 @@ public class Pokemon {
 	public void setShiny(boolean shiny) {
 		this.shiny = shiny;
 	}
+	public void addLevel(double increase) {
+		this.level += increase; 
+	}
+	
 }

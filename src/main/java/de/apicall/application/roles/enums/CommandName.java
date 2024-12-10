@@ -11,6 +11,7 @@ public enum CommandName {
 	    EVOLVE("!evolution", "Entwickelt ein Pokemon weiter"),
 		PERMISSION("!permission", "Ruft Berechtigung ab"), 
 		INFO("!info", "Ruft die infos zum Pokemon ab"),
+		FEED("!feed", "Füttert Pokemon"), 
 		
 		TRAINER("!trainer", "Ruft die Infos zum Trainer ab"); 
 
