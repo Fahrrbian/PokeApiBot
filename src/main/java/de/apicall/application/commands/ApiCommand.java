@@ -108,16 +108,12 @@ public class ApiCommand extends ListenerAdapter implements BotCommand {
     		    if (args.length > 1) {
     		        messageService.setCommandArgument(args[1]);
     		        try {    		    
-    		            // Erhalte die Liste der Embeds von evocontroller.getPokemonEvolution()
-    		            List<MessageEmbed> embeds = evocontroller.getPokemonEvolution();
 
-    		            // Baue die Nachricht mit den Embeds und Bildern auf
+    		            List<MessageEmbed> embeds = evocontroller.getPokemonEvolution();
     		            for (MessageEmbed embed : embeds) {
     		                String speciesName = embed.getTitle().replace("Evolution: ", "");
     		                byte[] imageBytes = apicontroller.getPokemonImage(speciesName);
     		                String imageName = speciesName + ".png";
-
-    		                // Sende jeden Embed einzeln mit dem zugehörigen Bild
     		                event.getChannel()
     		                    .sendMessageEmbeds(embed)
     		                    .addFile(imageBytes, imageName)

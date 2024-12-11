@@ -16,6 +16,7 @@ import de.apicall.application.events.pokemonName.PokemonNameProviderFactory;
 import jakarta.annotation.PostConstruct;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.ReadyEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 @Component
@@ -74,5 +75,12 @@ public class ReadyListener extends ListenerAdapter {
         graphics.drawImage(originalImage, 0, 0, width, height, null);
         graphics.dispose();
         return resizedImage;
+    }
+    @Override 
+    public void onMessageReceived(MessageReceivedEvent event) {
+    	if(event.getChannel().getName().equalsIgnoreCase("pokemon-channel") && !event.getAuthor().isBot()) {
+    		String content = event.getMessage().getContentRaw(); 
+    		event.getMessage().delete().queue();
+    	}
     }
 }
