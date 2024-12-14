@@ -1,6 +1,6 @@
 package de.apicall.application.entity;
 
-import de.apicall.application.evolutions.EvolutionServiceController;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,12 +13,7 @@ public class FirstEvoPokemon {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id; 
-	
-	private EvolutionServiceController evoServiceController;
-	
-	public FirstEvoPokemon(EvolutionServiceController evoServiceController) {
-		this.evoServiceController = evoServiceController; 
-	}
+
 	@Column(nullable=false)
 	private String name; 
 	
@@ -35,7 +30,7 @@ public class FirstEvoPokemon {
 		return name; 
 	}
 	public void setName(String name) {
-		this.name = evoServiceController.getRandomFirstStagePokemon();
+		this.name = name; 
 	}
 	public double getLevel() {
 		return level; 

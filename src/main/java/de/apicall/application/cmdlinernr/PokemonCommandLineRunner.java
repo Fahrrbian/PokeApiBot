@@ -6,6 +6,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import de.apicall.application.entity.Pokemon;
+import de.apicall.application.events.service.FirstEvoPokemonService;
 import de.apicall.application.repository.PokemonRepository;
 
 
@@ -16,8 +17,12 @@ public class PokemonCommandLineRunner implements CommandLineRunner{
 	@Autowired
 	private final PokemonRepository pokemonRepository; 
 	
-	public PokemonCommandLineRunner(PokemonRepository pokemonRepository) {
+	@Autowired
+	private final FirstEvoPokemonService evoPokemonService; 
+	
+	public PokemonCommandLineRunner(PokemonRepository pokemonRepository, FirstEvoPokemonService evoPokemonService) {
 		this.pokemonRepository = pokemonRepository; 
+		this.evoPokemonService = evoPokemonService; 
 	}
 	
 	@Override
@@ -42,6 +47,7 @@ public class PokemonCommandLineRunner implements CommandLineRunner{
 	                .orElseThrow(() -> new RuntimeException("Pokémon nicht gefunden!"));
 	        System.out.println("Gefundenes Pokémon: " + foundPokemon.getName());
 	        }
+	        evoPokemonService.createPokemon(); 
 	    }
 
 }

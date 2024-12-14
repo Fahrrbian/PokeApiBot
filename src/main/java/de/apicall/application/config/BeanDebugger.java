@@ -17,8 +17,8 @@ public class BeanDebugger {
 	  @PostConstruct
 	    public void printBeans() {
 	        System.out.println("///////////////////////////////Registrierte Beans:");
-	        /*for (String beanName : context.getBeanDefinitionNames()) {
-	            System.out.println(beanName);
-	        }*/
+	        //for (String beanName : context.getBeanDefinitionNames()) {
+	          //  System.out.println(beanName);
+	        //}
 	    }
 }
