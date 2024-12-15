@@ -20,11 +20,15 @@ public class RequestQueryPokemonNameProvider implements PokemonNameProvider {
 	@Override
 	public String getPokemonName() {
 		
-		return repo.findMostRecent()
+		return repo.findFirstByOrderByIdDesc()
+		.getName();
+		
+		/*
+		return repo.findFirstByOrderByIdDesc()
 				.map(FirstEvoPokemon::getName)
 				.orElseThrow(() -> new IllegalArgumentException("Kein Pokemon gefunden"));
 		
-		
+		*/
 		// TODO Auto-generated method stub
 		/* String pokemonName = "pikachu"; //pokemonDatabase.getRandomPokemonName().orElse(null);
 
