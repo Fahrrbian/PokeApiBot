@@ -2,24 +2,26 @@ package de.apicall.application.events.pokemonName;
 
 import org.springframework.stereotype.Component;
 
+import de.apicall.application.entity.FirstEvoPokemon;
 import de.apicall.application.entity.Pokemon;
-import de.apicall.application.repository.PokemonRepository;
+import de.apicall.application.events.service.FirstEvoPokemonService;
+import de.apicall.application.repository.FristEvoPokemonRepository;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Component
 public class RequestQueryPokemonNameProvider implements PokemonNameProvider {
 
-	private final PokemonRepository repo;  
+	private final FristEvoPokemonRepository repo;  
 	
-	public RequestQueryPokemonNameProvider(PokemonRepository repo) {
+	public RequestQueryPokemonNameProvider(FristEvoPokemonRepository repo) {
 		this.repo = repo; 
 	}
 
 	@Override
 	public String getPokemonName() {
 		
-		return repo.findById(1L)
-				.map(Pokemon::getName)
+		return repo.findMostRecent()
+				.map(FirstEvoPokemon::getName)
 				.orElseThrow(() -> new IllegalArgumentException("Kein Pokemon gefunden"));
 		
 		
