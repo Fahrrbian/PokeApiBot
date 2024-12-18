@@ -45,8 +45,6 @@ public class PokemonGotNextEvo {
 	        ResponseEntity<String> evolutionResponse = restTemplate.getForEntity(evolutionChainUrl, String.class);
 	        if (evolutionResponse.getStatusCode().is2xxSuccessful()) {
 	            JsonNode evolutionChain = new ObjectMapper().readTree(evolutionResponse.getBody());
-
-	            // 
 	            String rootName = evolutionChain.get("chain").get("species").get("name").asText();
 	            return rootName.equalsIgnoreCase(pokemonName); 
 	        	}
