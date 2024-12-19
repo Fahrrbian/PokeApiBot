@@ -24,10 +24,10 @@ public class FirstEvoPokemon {
 	private boolean shiny;
 	
 	@Column(nullable=false)
-	private String nextEvolutionName;
+	private String nextEvolutionName = "";
 	
 	@Column(nullable=false)
-	private int evolutionLevel; 
+	private int evolutionLevel = 0; 
 	
 	public Long getId() {
 		return id;
@@ -41,7 +41,7 @@ public class FirstEvoPokemon {
 	public double getLevel() {
 		return level; 
 	}
-	public void setLevel(double level) {
+	public void setLevel(int level) {
 		this.level = level; 
 	}
 	public boolean isShiny() {
@@ -65,7 +65,4 @@ public class FirstEvoPokemon {
 	public void addLevel(double increase) {
 		this.level += increase; 
 	}
-			
-			
-			
 }
