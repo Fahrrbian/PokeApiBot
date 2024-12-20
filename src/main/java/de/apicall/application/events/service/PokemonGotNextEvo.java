@@ -32,6 +32,9 @@ public class PokemonGotNextEvo {
 	}
 			
 	public boolean checkIfFirstEvo(String pokemonName) {
+		 if (pokemonName == null) {
+		        throw new IllegalArgumentException("Pokémon-Name darf nicht null sein.");
+		 }
 		
 	if(pokemonName != null) {
 		String pokemonUrl = "https://pokeapi.co/api/v2/pokemon-species/" + pokemonName;
@@ -50,8 +53,10 @@ public class PokemonGotNextEvo {
 	        	}
 	    	}
 		} catch(Exception e) {
-			throw new IllegalArgumentException("Fehler beim Abrufen der Evolutionskette für " + pokemonName);
-		}
+			System.err.println("Fehler beim Abrufen der Evolutionskette für " + pokemonName);
+			 e.printStackTrace();
+		        throw new IllegalArgumentException("Fehler beim Abrufen der Evolutionskette für " + pokemonName, e);
+		    }
 	}
 	return false; 	 
 	}

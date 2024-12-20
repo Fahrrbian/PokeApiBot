@@ -6,6 +6,7 @@ import de.apicall.application.controller.EvolutionServiceController;
 import de.apicall.application.entity.FirstEvoPokemon;
 import de.apicall.application.entity.Pokemon;
 import de.apicall.application.repository.EvolutionRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class FirstEvoPokemonService {
@@ -23,6 +24,7 @@ public class FirstEvoPokemonService {
 		this.pokemonGotNextEvo = pokemonGotNextEvo; 
 		this.evoChainProcessor = evoChainProcessor; 
 	}
+	@Transactional
 	public  FirstEvoPokemon createPokemon() {
 		String randomFirstStageName = evolutionServiceController.getRandomFirstStagePokemon(); 
 		FirstEvoPokemon pokemon = new FirstEvoPokemon(); 
