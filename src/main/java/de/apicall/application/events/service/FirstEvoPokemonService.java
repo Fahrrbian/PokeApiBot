@@ -33,7 +33,7 @@ public class FirstEvoPokemonService {
 		pokemon.setEvolutionLevel(16);
 		return evolutionRepository.save(pokemon); 
 	}
-	public void feedPokemon(Pokemon pokemon, double levelPoints) {
+	public void feedPokemon(FirstEvoPokemon pokemon, double levelPoints) {
 		pokemon.addLevel(levelPoints);
 		
 		if(pokemon.getLevel() >= 16 && pokemonGotNextEvo.checkIfFirstEvo(pokemon.getName())) {
@@ -43,5 +43,6 @@ public class FirstEvoPokemonService {
 				pokemon.setLevel(0);
 			}
 		}
+		evolutionRepository.save(pokemon);
 	}
 }
